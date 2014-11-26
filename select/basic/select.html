@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Clunt Select</title>
+    <link rel="stylesheet" href="./clunt-select.css">
+  </head>
+  <body>
+    <div class="select-wrap">
+      <select class="select-custom" name="country">
+        <option value="america">America</option>
+        <option value="britain">Britain</option>
+        <option value="china">China</option>
+        <option value="holland" disabled="disabled">Holland</option>
+      </select>
+    </div>
+    <!-- // <script src="http://127.0.0.1/static/javascripts/jquery.min.js"></script> -->
+    <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+    <script src="./clunt-select.js"></script>
+    <script>
+      $(function () {
+        $('.select-custom').cluntSelect();
+      });
+    </script>
+  </body>
+</html>
