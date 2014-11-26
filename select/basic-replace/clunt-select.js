@@ -6,8 +6,10 @@
   // Browser Globals
   factory(jQuery);
 })(function ($) {
-  $('body').on('click', function () {
-    $('.clunt-select').removeClass('open');
+  $(function () {
+    $('body').on('click', function () {
+      $('.clunt-select').removeClass('open');
+    });
   });
   $.fn.cluntSelect = function (option) {
     return this.each(function (index, target) {
