@@ -1,4 +1,4 @@
-/* Copyright (c) 2014 Clunt
+/* Copyright (c) 2014 Clunt CustomSelect
  * Licensed under the MIT License
  */
 (function (factory) {
@@ -27,6 +27,7 @@
         $select.on('click', function (event) {
           if (!$(this).hasClass('open')) {
             event.stopPropagation();
+            $('.clunt-select').removeClass('open');
             $(this).addClass('open').find('.param-item.checked').addClass('hover').siblings().removeClass('hover');
           }
         }).on('mouseenter', '.param-item', function () {
