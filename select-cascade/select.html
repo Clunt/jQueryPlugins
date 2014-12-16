@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <title>Clunt Select Model</title>
-    <link rel="stylesheet" href="./clunt-select.css">
+    <link rel="stylesheet" href="../select/basic-replace/clunt-select.css">
   </head>
   <body>
     <div class="select-wrap">
-      <select class="select-custom" name="country">
+      <select class="select-custom" name="country[]" data-url="/123">
         <option value="america">America</option>
         <option value="britain">Britain</option>
         <option value="china">China</option>
@@ -16,12 +16,37 @@
     </div>
     <!-- // <script src="http://127.0.0.1/static/javascripts/jquery.min.js"></script> -->
     <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
-    <script src="./clunt-select.js"></script>
+    <script src="../select/basic-replace/clunt-select.js"></script>
     <script src="./clunt-cascadeselect.js"></script>
     <script>
+      var cJson = {
+        status: {
+          code : 200
+        },
+        data: [{
+          type: 'input',
+          value: '默认值'
+        },{
+          type: 'textarea'
+        },{
+          type: 'select',
+          next: '/abc',
+          option: [{
+            text: '美国',
+            value: 'amarica'
+          },{
+            text: '中国',
+            value: 'china'
+          }]
+        }]
+      };
       $(function () {
         $('.select-custom').cluntSelect();
-        $('.select-custom').cluntCascadeSelect();
+        $('.select-custom').cluntCascadeSelect({
+          url: '',
+          css: ' input',
+          // name: 'test[]'
+        });
       });
     </script>
   </body>
