@@ -6,7 +6,7 @@
   // Browser Globals
   factory(jQuery);
 })(function ($) {
-  if (typeof $.cluntSelect !== 'undefined') {
+  if (typeof $.fn.cluntCascadeSelect !== 'undefined') {
     return;
   }
   $.fn.cluntCascadeSelect = function (option) {
