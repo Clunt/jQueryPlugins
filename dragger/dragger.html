@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    html, body{height: 100%;margin: 0;padding: 0;}
+    #sidebar{width: 550px;height: 100%;background: blue;}
+    #preview{position: absolute;top: 0;right: 0;bottom: 0;left: 550px;background: #eee;}
+    .preview-resizer{width: 9px;height: 100%;background: #333;cursor: ew-resize;}
+    .preview-resizer{float: left;margin-left: 20px;}
+  </style>
+</head>
+<body>
+  <div id="sidebar"></div>
+  <div id="preview">
+    <div id="preview-resizer" class="preview-resizer">1</div>
+    <div class="preview-resizer">2</div>
+    <div class="preview-resizer">3</div>
+  </div>
+  <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+  <script src="./dragger.js"></script>
+  <script>
+    $(function() {
+      $('.preview-resizer').dragger('on').on('dragstart', function() {
+        console.log('dragstart', this);
+      }).on('drag', function(event, coords) {
+        console.log('drag', this);
+      }).on('dragend', function() {
+        console.log('dragend', this);
+      });
+      $('#preview-resizer').dragger('destory');
+      // $('#preview-resizer').dragger('on');
+    });
+  </script>
+</body>
+</html>
