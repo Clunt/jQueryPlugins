@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Clunt Select Model</title>
+    <link rel="stylesheet" href="./nesty.css">
+  </head>
+  <body>
+    <div class="select-wrap">
+      <select class="select-optgroup">
+          <option>选择</option>
+          <optgroup label="WEB编程">
+              <option value="a" selected="">ASP</option>
+              <option value="b">PHP</option>
+              <option value="c">Ajax</option>
+          </optgroup>
+          <optgroup label="WinForm编程">
+              <option value="d">VB</option>
+              <option value="e">VC</option>
+              <option value="f">C#</option>
+              <option value="g" selected="selected">Delphi</option>
+          </optgroup>
+      </select>
+      <select class="select-custom" name="country" style="display:none;">
+        <option value="america">America</option>
+        <option value="britain">Britain</option>
+        <option value="china">China</option>
+        <option value="holland" disabled="disabled">Holland</option>
+      </select>
+    </div>
+    <!-- // <script src="http://127.0.0.1/static/javascripts/jquery.min.js"></script> -->
+    <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+    <script src="./nesty.js"></script>
+    <script>
+      $(function () {
+        new Nesty($('.select-optgroup')[0]);
+        new Nesty($('.select-custom')[0]);
+      });
+    </script>
+  </body>
+</html>

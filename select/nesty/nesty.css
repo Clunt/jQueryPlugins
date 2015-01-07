@@ -1,0 +1,21 @@
+.nesty-input{background-color:#FFF;border:1px solid #ECECEC;border-radius:1px;box-shadow:inset 0 1px #E3E3E3;color:#333;cursor:pointer;display:inline-block;height:30px;line-height:30px;margin:0;max-width:250px;min-width:150px;overflow:hidden;padding:0 20px 0 5px;position:relative;text-overflow:ellipsis;z-index:1;width:100%;white-space:nowrap}
+.nesty-input:hover{text-decoration:none}
+.nesty-input:after{color:#999;content:"\25BE";line-height:1em;position:absolute;right:10px;top:25%}
+.nesty-panel,.nesty-panel ul{overflow-x:hidden;overflow-y:auto}
+.nesty-panel{background:#FFF;border:1px solid #AAA;box-shadow:0 2px 5px rgba(0,0,0,0.15);height:150px;max-width:300px;min-width:100px;position:absolute!important;z-index:999999999}
+.nesty-panel ul{background:#FFF;border:0;bottom:0;height:100%;left:0;margin:0;padding:0;position:absolute;right:0;top:0;width:100%!important;transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0);-moz-transform:translate3d(0,0,0);-ms-transform:translate3d(0,0,0);-webkit-backface-visibility:hidden;-ms-backface-visibility:hidden}
+.nesty-panel li{background:#FFF;border:0;color:#333;cursor:pointer;display:block;font-size:13px;font-weight:normal;font-style:normal;font-family:sans-serif;line-height:1;margin:0!important;min-height:27px;padding:5px!important;position:relative;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+.nesty-panel li:focus{background:#E9E9E9;outline:none}
+.nesty-panel li.nesty-selected{font-weight:bold}
+li.nesty-collapse{color:#999}
+.nesty-expand:after,.nesty-collapse:after{border-color:transparent;border-style:solid;border-width:4px;content:" ";height:0;margin-top:-5px;position:absolute;right:5px;top:50%;width:0}
+.nesty-expand:after{border-left-color:#999;border-right-width:0}
+.nesty-collapse:after{border-left-width:0;border-right-color:#999}
+html[dir=rtl] .nesty-input{padding:0 5px 0 20px}
+html[dir=rtl] .nesty-input:after{right:auto;left:10px}
+html[dir=rtl] .nesty-expand:after,html[dir=rtl] .nesty-collapse:after{right:auto;left:5px}
+html[dir=rtl] .nesty-expand:after{border-left-color:auto;border-right-color:#999;border-right-width:auto;border-left-width:0}
+html[dir=rtl] .nesty-collapse:after{border-left-width:auto;border-right-width:0;border-right-color:auto;border-left-color:#999}
+.nesty-input{border:1px solid #E4E4E4;border-radius:2px;box-shadow:none;padding:0 15px 0 10px}
+.nesty-panel{border-radius:2px}
+.nesty-panel li{font-family:"Lucida Grande",helvetica,sans-serif}
