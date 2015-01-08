@@ -1,4 +1,4 @@
-/* Copyright (c) 2014 Clunt CustomSelect
+c/* Copyright (c) 2014 Clunt CustomSelect
  * Licensed under the MIT License
  */
 (function(root, factory) {
@@ -402,7 +402,9 @@
 
       function onClick(e) {
         var item = e.target || e.srcElement;
-        item.nesty.pushIt();
+        if (item.nesty && item.nesty.pushIt) {
+          item.nesty.pushIt();
+        }
       }
 
       function onKeydown(e) {
