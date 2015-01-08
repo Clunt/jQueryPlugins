@@ -18,32 +18,8 @@
     <script src="../select/basic-replace/clunt-select.js"></script>
     <script src="./clunt-cascadeselect.js"></script>
     <script>
-      var cJson = {
-        status: {
-          code : 200
-        },
-        data: [{
-          type: 'input',
-          // value: 'fgbhjhnlf'
-        },{
-          type: 'textarea'
-        },{
-          type: 'select',
-          next: '/abc',
-          option: [{
-            text: '美国',
-            value: 'amarica'
-          },{
-            text: '美国',
-            value: 'amarica'
-          },{
-            text: '中国',
-            value: 'china'
-          }]
-        }]
-      };
       $(function () {
-        $('.select-custom').cluntSelect();
+        // $('.select-custom').cluntSelect();
         $('.select-custom').cluntCascadeSelect({
           url: '',
           css: ' input',

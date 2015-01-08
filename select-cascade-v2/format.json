@@ -1,0 +1,43 @@
+[{
+  "text": "中国",
+  "value": "text",
+  "next": [{
+    "type": "input"
+  }, {
+    "type": "textarea"
+  }, {
+    "type": "select",
+    "next": "/abc",
+    "option": [{
+      "text": "美国",
+      "value": "amarica"
+    }, {
+      "text": "美国",
+      "value": "amarica"
+    }, {
+      "text": "中国",
+      "value": "china"
+    }]
+  }]
+}, {
+  "text": "美国",
+  "value": "text",
+  "next": [{
+    "type": "input"
+  }, {
+    "type": "textarea"
+  }, {
+    "type": "select",
+    "next": "/abc",
+    "option": [{
+      "text": "美国",
+      "value": "amarica"
+    }, {
+      "text": "美国",
+      "value": "amarica"
+    }, {
+      "text": "中国",
+      "value": "china"
+    }]
+  }]
+}]
