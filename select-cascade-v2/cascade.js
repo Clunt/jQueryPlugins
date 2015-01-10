@@ -9,157 +9,228 @@
     return;
   }
   $.fn.cascade = function(option) {
-    function Cascade(node, data) {
-      this.$node = $(node);
-      this.node  = node;
-      this.data  = data || {};
-      this.map   = [];
+    var options = option || {};
+    function Cascade(node, option) {
+      this.node    = node;
+      this.$node   = $(node);
+      this.name    = option.name || '';
+      this.path    = option.path || '';
+      this.cascade = option.cascade || {};
+      this.ajaxid  = 0;
       this.init();
+      console.log(option);
     }
     Cascade.prototype.init = function() {
-      this.anaylseStructure();
-      this.bind();
-    };
-    Cascade.prototype.bind = function() {
       var self = this;
+      this.anaylseStructure();
       this.$node.on('change', function() {
-        var value = $(this).val(),
-            data  = self.data;
-        if (value !== null) {
-          if (value === '') {
-            self.$node.nextAll().remove();
-          } else if (typeof data[value] === 'string') {
-            self.ajaxCascade(value);
-          } else if (typeof data[value] === 'object') {
-            self.dealCascade(value);
-          }
+        var value = $(this).val();
+        if (typeof value === 'string') {
+          self.changeCascade(value);
         }
       });
+      this.$node.change();
     };
     Cascade.prototype.anaylseStructure = function() {
-      var node    = this.node,
-          options = node.options,
-          path    = '',
-          option,
-          value;
+      var node    = this.node;
+      var path    = this.path;
+      var cascade = this.cascade;
+      var options = node.options;
+      var value;
       for (var i = 0; i < options.length; i += 1) {
-        option = options[i];
         value = options[i].value;
-        if (value !=='') {
-          if (this.data[value] === undefined) {
-            this.data[value] = path;
-          }
+        if (value !== '' && cascade[value] === undefined) {
+          cascade[value] = path;
         }
       }
     };
+    Cascade.prototype.changeCascade = function(value) {
+      var cascade = this.cascade;
+      if (value === '') {
+        this.$node.nextAll().remove();
+      } else if (typeof cascade[value] === 'string') {
+        this.ajaxCascade(value);
+      } else if (typeof cascade[value] === 'object') {
+        this.dealCascade(value);
+      }
+    };
     Cascade.prototype.dealCascade = function(value) {
-      var self = this;
-      var index = [];// TODO
+      var self   = this;
+      var datas  = this.cascade[value];
+      var index  = [];
       var handle = {
         input: function (data) {
-          var html = '<input name="" value="">';
+          var value = data.value || '';
+          var html = '<input name="' + self.name + '" value="' + value + '">';
+          data.value = null;
           return html;
         },
         textarea: function (data) {
-          var html = '<textarea name=""></textarea>';
+          var value = data.value || '';
+          var html = '<textarea name="' + self.name + '">' + value + '</textarea>';
+          data.value = null;
           return html;
         },
         select: function (data) {
-          var options = data.option;
+          var options = data.options;
           var option;
-          var html = '<select name="">';
+          var selected = '';
+          var disabled = '';
+          var html = '<select name="' + self.name + '">';
           for (var i = 0; i < options.length; i += 1) {
             option = options[i];
-            html += '<option value="' + option.value + '">' + option.text + '</option>';
+            selected = option.selected === 'selected' ? ' selected="selected"' : '';
+            disabled = option.disabled === 'disabled' ? ' disabled="disabled"' : '';
+            html += '<option value="' + option.value + '"' + selected + disabled +'>' + option.text + '</option>';
+            option.selected = null;
           }
           html += '</select>'
           return html;
         }
       };
       var $html = $(function() {
-        var cascades = self.data[value];
-        var cascade;
         var html = '';
-        for (var i = 0; i < cascades.length; i++) {
-          cascade = cascades[i];
-          html += handle[cascade.type](cascade);
-
-          // TODO
-          if (cascade.type == 'select') {
-            index.push({
-              value: value,
-              ind: i
-            });
+        var data;
+        for (var i = 0; i < datas.length; i++) {
+          data = datas[i];
+          html += handle[data.type](data);
+          if (data.cascade !== undefined) {
+            index.push(i);
           }
         }
         return html;
       }());
+      // Insert HTML After SELECT_NODE
       this.$node.nextAll().remove().end().after($html);
-      for (var i = 0; i < index.length; i++) {
-        var ind = index[i]['ind'];
-        var target = $html[ind];
-        if (this.map[index[i]['value']] === undefined) {
-          this.map[index[i]['value']] = {};
-        }
-        new Cascade(target, this.map[index[i]['value']]);
-      }
+      // Continue Cascade For Child
+      this.childCascade(value, $html, index);
     };
-
-
-
+    Cascade.prototype.childCascade = function(value, $group, index) {
+      var datas = this.cascade[value];
+      var data, target;
+      for (var i = 0, j; i < index.length; i += 1) {
+        j = index[i];
+        data = datas[j];
+        target = $group[j];
+        if (typeof data.cascade === 'string') {
+          data.cascade = {};
+        }
+        new Cascade(target, {
+          'name': data.name || this.name || '',
+          'path': data.path || this.path || '',
+          'cascade': data.cascade
+        });
+      }
+    }
     Cascade.prototype.ajaxCascade = function(value) {
-      console.log('ajaxCascade')
       var self = this;
+      var ajaxid = this.ajaxid + 1;
+      var ajaxOption = {
+        url: this.path,
+        data: {
+          value: value,
+        }
+      };
+      this.ajaxid += 1;
+      // TODO Remove Begin
       !(function() {
-        if (value === 'input') {
-          self.data[value] = [{
-            "type": "input"
-          }];
-        } else if (value === 'select') {
-          self.data[value] = [{
-            "type": "select",
-            "option": [{
-              "text": "美国",
-              "value": "select"
-            }, {
-              "text": "美国",
-              "value": "input"
-            }, {
-              "text": "中国",
-              "value": "textarea"
+        self.cascade[value] = [{
+          "type": "input"
+        }];
+        self.cascade[value] = [{
+          "type": "select",
+          "options": [{
+            "text": "是",
+            "value": "true"
+          }, {
+            "text": "否",
+            "value": "false"
+          }],
+          "cascade": {
+            "true": [{
+              "type": "input"
             }]
-          }];
-        } else if (value === 'textarea') {
-          self.data[value] = [{
-            "type": "textarea"
-          }];
-        } else if (value === 'all') {
-          self.data[value] = [{
-            "type": "input"
+          }
+        }];
+        if (value == 'true') {
+          return;
+        }
+        if (ajaxid === self.ajaxid) {
+          self.dealCascade(value);
+        }
+        return;
+        self.cascade[value] = [{
+          "type": "input"
+        }];
+        self.cascade[value] = [{
+          "type": "textarea"
+        }];
+        self.cascade[value] = [{
+          "type": "select",
+          "options": [{
+            "text": "是",
+            "value": "true"
           }, {
-            "type": "textarea"
-          }, {
-            "type": "select",
-            "option": [{
-              "text": "美国",
-              "value": "amarica"
-            }, {
-              "text": "美国",
-              "value": "amarica"
-            }, {
-              "text": "中国",
-              "value": "china"
+            "text": "否",
+            "value": "false"
+          }],
+          "path": 'abc',
+          "cascade": {
+            "true": [{
+              "type": "input"
+            }],
+            "false": [{
+              "type": "textarea"
             }]
-          }];
-        } else {
-          self.data[value] = [{
-            "type": "input"
+          }
+        }];
+        self.cascade[value] = [{
+          "type": "select",
+          "options": [{
+            "text": "是",
+            "value": "true"
           }, {
-            "type": "textarea"
+            "text": "否",
+            "value": "false"
+          }],
+          "path": 'abc',
+          "cascade": {
+            "true": [{
+              "type": "textarea"
+            }]
+          }
+        }];
+        if (value == 'false') {
+          self.cascade[value] = [{
+            "type": "input"
           }];
         }
-      }())
-      this.dealCascade(value);
+        if (ajaxid === self.ajaxid) {
+          self.dealCascade(value);
+        }
+      }());
+      return;
+      // TODO Remove End
+      $.ajax({
+        type: 'GET',
+        url: ajaxOption.url,
+        data: ajaxOption.data,
+        dataType: 'JSON',
+        cache: false,
+        success: function (result) {
+          if (result.status === 200) {
+            self.cascade[value] = result.data;
+            if (ajaxid === self.ajaxid) {
+              self.dealCascade(value);
+            }
+          } else {
+            alert('加载失败，请刷新重试');
+          }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          alert('加载失败，请刷新重试');
+        }
+      });
     };
     return this.each(function(index, target) {
       var $target = $(target);
@@ -167,7 +238,14 @@
         return;
       }
       $target.attr('data-cascade', +new Date);
-      test = new Cascade(target);
+      // Default Option
+      var option = {};
+      if (options.cascade) {
+        option.cascade = options.cascade;
+      }
+      option.path = options.path || $target.attr('data-cascade-path') || '';
+      option.name = options.name || $target.attr('name') || '';
+      new Cascade(target, option);
     });
   };
 });

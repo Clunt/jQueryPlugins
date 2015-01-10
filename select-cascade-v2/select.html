@@ -5,29 +5,168 @@
     <title>Clunt Select Model</title>
     <link rel="stylesheet" href="../select/basic-replace/clunt-select.css">
     <style>
-    div{padding: 100px;}
+    body{padding: 100px;}
+    div{margin: 20px;padding: 20px;background: #eee;}
     div>*{display: block;margin: 10px;}
     </style>
   </head>
   <body>
-  <div>
-    <select class="select-cascade" name="country[][]">
-      <option value="">empty</option>
-      <option value="null">null</option>
-      <option value="select">Select</option>
-      <option value="input">Input</option>
-      <option value="textarea">Textarea</option>
-      <option value="all">All</option>
-      <option value="holland" disabled="disabled">Holland</option>
-    </select>
-  </div>
-    <!-- <input type="text" name="input" id="input"> -->
+    <div id="pre">
+      <select class="select-cascade" name="init[]">
+        <option value="">单击以下选择操作</option>
+        <option value="greater">大于</option>
+        <option value="lesser">小于</option>
+        <option value="equal">等于</option>
+        <option value="custom">自定义</option>
+      </select>
+    </div>
+    <!--
+    <div>
+      <select class="select-cascade" name="init[]">
+        <option value="">单击以下选择操作</option>
+        <option value="biaoti">标题</option>
+        <option value="wenben">文本</option>
+        <option value="xuanze">选择</option>
+        <option value="tongji">同级</option>
+        <option value="lianxi">联系</option>
+      </select>
+    </div>
+    -->
+
+
     <script src="../libs/jquery.js"></script>
     <script src="../select/basic-replace/clunt-select.js"></script>
     <script src="./cascade.js"></script>
     <script>
+      var json = {
+        "biaoti": [{
+          "type": "input",
+          "value": "标题"
+        }],
+        "wenben": [{
+          "type": "textarea",
+          "value": "文本"
+        }],
+        "xuanze": [{
+          "name": "xuanze1",
+          "type": "select",
+          "options": [{
+            "text": "大于",
+            "value": "greater"
+          }, {
+            "text": "小于",
+            "value": "lesser"
+          }, {
+            "text": "等于",
+            "value": "equal"
+          }, {
+            "text": "自定义",
+            "value": "custom"
+          }],
+          "path": "url",
+          "cascade": {}
+        }],
+        "tongji": [{
+          "type": "input",
+          "value": "同级"
+        }, {
+          "type": "textarea",
+          "value": "同级"
+        }],
+        "lianxi": [{
+          "type": "select",
+          "options": [{
+            "text": "空",
+            "value": "empty"
+          }, {
+            "text": "等于",
+            "value": "equal",
+            "selected": "selected"
+          }, {
+            "text": "自定义",
+            "value": "custom"
+          }],
+          "cascade": {
+            "empty": [],
+            "custom": [{
+              "type": "input"
+            }],
+            "equal": [{
+              "type": "select",
+              "options": [{
+                "text": "早上",
+                "value": "morning"
+              }, {
+                "text": "中午",
+                "value": "afternoon"
+              }, {
+                "text": "晚上",
+                "value": "evening"
+              }]
+            }]
+          }
+        }]
+      };
+      var INIT = [{
+        "name": "init",
+        "options": [{
+          "text": "大于",
+          "value": "greater"
+        }, {
+          "text": "小于",
+          "value": "lesser",
+          "selected": "selected"
+        }, {
+          "text": "等于",
+          "value": "equal"
+        }, {
+          "text": "自定义",
+          "value": "custom"
+        }],
+        "path": "AJAX URL",
+        "cascade": {
+          "lesser": [{
+            "type": "input",
+            "value": "input Default Value",
+          }, {
+            "type": "textarea",
+            "value": "textarea Default Value"
+          }, {
+            "type": "select",
+            "options": [{
+              "text": "空",
+              "value": ""
+            }, {
+              "text": "是",
+              "value": "shi"
+            }, {
+              "text": "否",
+              "value": "fou",
+            }, {
+              "text": "其他",
+              "value": "other",
+              "selected": "selected"
+            }],
+            "path": "AJAX URL",
+            "cascade": {
+              "other": [{
+                "type": "input",
+                "value": "Finally Input",
+              }]
+            }
+          }]
+        }
+      }];
       $(function () {
-        $('.select-cascade').cascade();
+        // Type 1
+        // $('.select-cascade').cascade();
+        // Type 2
+        $('.select-cascade').cascade({
+          path: INIT[0].path,
+          cascade: INIT[0].cascade
+        });
+        // Type 3
+        // $('<select class="select-cascade" name=""><option value="">单击以下选择操作</option><option value="biaoti">标题</option><option value="wenben">文本</option><option value="xuanze">选择</option><option value="tongji">同级</option><option value="lianxi">联系</option></select>').hide().cascade().appendTo('#pre').show();
       });
     </script>
   </body>

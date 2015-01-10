@@ -1,0 +1,115 @@
+/**
+ * README
+ */
+
+/**
+ * Init
+ */
+[{
+  "name": "",
+  "options": [{
+    "text": "大于",
+    "value": "greater"
+  }, {
+    "text": "小于",
+    "value": "lesser",
+    "selected": "selected"
+  }, {
+    "text": "等于",
+    "value": "equal"
+  }, {
+    "text": "自定义",
+    "value": "custom"
+  }],
+  "path": "AJAX URL",
+  "cascade": {
+    "lesser": [{
+      "type": "input",
+      "value": "input Default Value",
+    }, {
+      "type": "textarea",
+      "value": "textarea Default Value"
+    }, {
+      "type": "select",
+      "options": [{
+        "text": "是",
+        "value": "shi"
+      }, {
+        "text": "否",
+        "value": "fou",
+      }, {
+        "text": "其他",
+        "value": "other",
+        "selected": "selected"
+      }],
+      "path": "AJAX URL",
+      "cascade": {
+        "other": [{
+          "type": "input",
+          "value": "Finally Input",
+        }]
+      }
+    }]
+  }
+}]
+
+
+/**
+ * Ajax Back
+ */
+[{
+  "type": "input"
+}, {
+  "type": "textarea"
+}, {
+  "type": "select",
+  "options": [{
+    "text": "是",
+    "value": "true"
+  }, {
+    "text": "否",
+    "value": "false"
+  }]
+}, {
+  "type": "select",
+  "options": [{
+    "text": "是",
+    "value": "true"
+  }, {
+    "text": "否",
+    "value": "false"
+  }],
+  "path": "abc",
+  "cascade": {
+    "true": [{
+      "type": "textarea"
+    }]
+  }
+}]
+
+/**
+ * Format
+ */
+{
+  "status": {
+    "code": 200
+  },
+  "data": {
+    "cascade": [{
+      "type": "select",
+      "options": [{
+        "text": "是",
+        "value": "true"
+      }, {
+        "text": "否",
+        "value": "false"
+      }],
+      "path": "abc",
+      "cascade": {
+        "true": [{
+          "type": "textarea"
+        }]
+      }
+    }]
+  }
+}
