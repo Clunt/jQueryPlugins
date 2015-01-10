@@ -12,6 +12,9 @@
   </head>
   <body>
     <div id="pre">
+    </div>
+    <!--
+    <div id="pre">
       <select class="select-cascade" name="init[]">
         <option value="">单击以下选择操作</option>
         <option value="greater">大于</option>
@@ -20,7 +23,6 @@
         <option value="custom">自定义</option>
       </select>
     </div>
-    <!--
     <div>
       <select class="select-cascade" name="init[]">
         <option value="">单击以下选择操作</option>
@@ -32,83 +34,29 @@
       </select>
     </div>
     -->
-
-
     <script src="../libs/jquery.js"></script>
     <script src="../select/basic-replace/clunt-select.js"></script>
     <script src="./cascade.js"></script>
     <script>
-      var json = {
-        "biaoti": [{
-          "type": "input",
-          "value": "标题"
-        }],
-        "wenben": [{
-          "type": "textarea",
-          "value": "文本"
-        }],
-        "xuanze": [{
-          "name": "xuanze1",
-          "type": "select",
-          "options": [{
-            "text": "大于",
-            "value": "greater"
-          }, {
-            "text": "小于",
-            "value": "lesser"
-          }, {
-            "text": "等于",
-            "value": "equal"
-          }, {
-            "text": "自定义",
-            "value": "custom"
-          }],
-          "path": "url",
-          "cascade": {}
-        }],
-        "tongji": [{
-          "type": "input",
-          "value": "同级"
-        }, {
-          "type": "textarea",
-          "value": "同级"
-        }],
-        "lianxi": [{
-          "type": "select",
-          "options": [{
-            "text": "空",
-            "value": "empty"
-          }, {
-            "text": "等于",
-            "value": "equal",
-            "selected": "selected"
-          }, {
-            "text": "自定义",
-            "value": "custom"
-          }],
-          "cascade": {
-            "empty": [],
-            "custom": [{
-              "type": "input"
-            }],
-            "equal": [{
-              "type": "select",
-              "options": [{
-                "text": "早上",
-                "value": "morning"
-              }, {
-                "text": "中午",
-                "value": "afternoon"
-              }, {
-                "text": "晚上",
-                "value": "evening"
-              }]
-            }]
-          }
-        }]
-      };
       var INIT = [{
-        "name": "init",
+        "name": "init0[]",
+        "options": [{
+          "text": "北京",
+          "value": "beijing"
+        }, {
+          "text": "天津",
+          "value": "tianjin",
+          "selected": "selected"
+        }],
+        "path": "AJAX URL",
+        "cascade": {
+          "tianjin": [{
+            "type": "input",
+            "value": "input Default Value For tianjin",
+          }]
+        }
+      }, {
+        "name": "init1[]",
         "options": [{
           "text": "大于",
           "value": "greater"
@@ -161,12 +109,39 @@
         // Type 1
         // $('.select-cascade').cascade();
         // Type 2
-        $('.select-cascade').cascade({
-          path: INIT[0].path,
-          cascade: INIT[0].cascade
-        });
+        // $('.select-cascade').cascade({
+        //   path: INIT[0].path,
+        //   cascade: INIT[0].cascade
+        // });
         // Type 3
-        // $('<select class="select-cascade" name=""><option value="">单击以下选择操作</option><option value="biaoti">标题</option><option value="wenben">文本</option><option value="xuanze">选择</option><option value="tongji">同级</option><option value="lianxi">联系</option></select>').hide().cascade().appendTo('#pre').show();
+        !(function() {
+          var $select;
+          var data;
+          for (var i = 0; i < INIT.length; i++) {
+            data = INIT[i];
+            $select = $(function() {
+              var options = data.options;
+              var option;
+              var selected = '';
+              var disabled = '';
+              var html = '<div><select name="' + data.name + '">';
+              for (var i = 0; i < options.length; i += 1) {
+                option = options[i];
+                selected = option.selected === 'selected' ? ' selected="selected"' : '';
+                disabled = option.disabled === 'disabled' ? ' disabled="disabled"' : '';
+                html += '<option value="' + option.value + '"' + selected + disabled +'>' + option.text + '</option>';
+                option.selected = null;
+              }
+              html += '</select></div>'
+              return html;
+            }());
+            $select.appendTo('#pre').find('select').cascade({
+              path: data.path,
+              cascade: data.cascade
+            }).show();
+          };
+          // $('<select class="select-cascade" name=""><option value="">单击以下选择操作</option><option value="biaoti">标题</option><option value="wenben">文本</option><option value="xuanze">选择</option><option value="tongji">同级</option><option value="lianxi">联系</option></select>').hide().cascade().appendTo('#pre').show();
+        }())
       });
     </script>
   </body>

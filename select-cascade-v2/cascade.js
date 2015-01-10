@@ -46,6 +46,8 @@
     };
     Cascade.prototype.changeCascade = function(value) {
       var cascade = this.cascade;
+      console.log(value);
+      console.log(typeof cascade[value]);
       if (value === '') {
         this.$node.nextAll().remove();
       } else if (typeof cascade[value] === 'string') {
