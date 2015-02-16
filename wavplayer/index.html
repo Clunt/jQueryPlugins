@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>WavPlayer</title>
+    <style>
+    body{padding: 50px;}
+    .info{width: 500px;margin: 0 auto;padding: 30px;background: #eee;}
+
+    .wavplayer{position: relative;width: 320px;height: 26px;margin: 20px auto;background: #ddd;font-size: 12px;line-height: 26px;}
+      .wavplayer .btn{position: absolute;top: 0;left: 10px;cursor: pointer;}
+        .wavplayer .btn[data-wav=play]{background: green;}
+        .wavplayer .btn[data-wav=load]{background: yellow;}
+        .wavplayer .btn[data-wav=pause]{background: blue;}
+        .wavplayer .btn[data-wav=resume]{background: green;}
+        .wavplayer .btn[data-wav=stop]{background: #fff;}
+        .wavplayer .btn[data-wav=play]:before{content: "play";}
+        .wavplayer .btn[data-wav=load]:before{content: "load"}
+        .wavplayer .btn[data-wav=pause]:before{content: "pause"}
+        .wavplayer .btn[data-wav=resume]:before{content: "resume"}
+        .wavplayer .btn[data-wav=stop]:before{content: "stop"}
+      .wavplayer .progress{position: absolute;top: 8px;left: 40px;width: 180px;height: 10px;margin: 0 auto;background: #eee;}
+        .wavplayer .progress-pos{width: 0;height: 10px;background: #a24646;}
+      .wavplayer .time{position: absolute;top: 0;right: 0;}
+    a[data-wav=complete]{display: none;}
+    </style>
+  </head>
+  <body>
+    <div class="info">
+      <a data-wav="init" data-time="284" href="music.wav" target="_blank">music.wav</a>
+      <a data-wav="init" data-time="1" href="ringin.wav" target="_blank">ringin.wav</a>
+    </div>
+    <div class="info">
+      <div id="InfoPlay"></div>
+      <div id="InfoFile"></div>
+      <div id="InfoSound"></div>
+    </div>
+    <textarea style="display:none;">
+      <div class="wavplayer" title="{{wav.name}}">
+        <div class="btn" data-wav="play" data-src="{{wav.src}}">
+        </div>
+        <div class="progress">
+          <div class="progress-pos">
+          </div>
+        </div>
+        <div class="time">
+        <span>00:00</span>/{{wav.time}}</div>
+      </div>
+    </textarea>
+    <script src="/static/javascripts/jquery.js"></script>
+    <script src="./js/main.js"></script>
+    <script>
+    $(function() {
+      WavPlayer.init();
+    });
+    </script>
+  </body>
+</html>

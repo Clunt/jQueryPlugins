@@ -44,6 +44,24 @@
           "text": "请单击以选择条件",
           "value": ""
         }, {
+          "group": {
+            "title": "-----------",
+            "options": [{
+              "text": "大于",
+              "value": "greater"
+            }, {
+              "text": "小于",
+              "value": "lesser",
+              "selected": "selected"
+            }, {
+              "text": "等于",
+              "value": "equal"
+            }, {
+              "text": "自定义",
+              "value": "custom"
+            }]
+          }
+        }, {
           "text": "北京",
           "value": "beijing"
         }, {
@@ -109,14 +127,24 @@
         }
       }];
       $(function () {
-        // Type 1
-        // $('.select-cascade').cascade();
-        // Type 2
-        // $('.select-cascade').cascade({
-        //   path: INIT[0].path,
-        //   cascade: INIT[0].cascade
-        // });
-        // Type 3
+        function preOptions(options) {
+          var option;
+          var selected = '';
+          var disabled = '';
+          var html = '';
+          for (var i = 0; i < options.length; i += 1) {
+            option = options[i];
+            if (option.group) {
+              html += '<optgroup label="' + option.group.title + '">' + preOptions(option.group.options) + '</optgroup>';
+            } else {
+              selected = option.selected === 'selected' ? ' selected="selected"' : '';
+              disabled = option.disabled === 'disabled' ? ' disabled="disabled"' : '';
+              html += '<option value="' + option.value + '"' + selected + disabled +'>' + option.text + '</option>';
+              option.selected = null;
+            }
+          }
+          return html;
+        }
         !(function() {
           var $select;
           var data;
@@ -128,13 +156,14 @@
               var selected = '';
               var disabled = '';
               var html = '<div><select name="' + data.name + '">';
-              for (var i = 0; i < options.length; i += 1) {
-                option = options[i];
-                selected = option.selected === 'selected' ? ' selected="selected"' : '';
-                disabled = option.disabled === 'disabled' ? ' disabled="disabled"' : '';
-                html += '<option value="' + option.value + '"' + selected + disabled +'>' + option.text + '</option>';
-                option.selected = null;
-              }
+              html += preOptions(options);
+              // for (var i = 0; i < options.length; i += 1) {
+              //   option = options[i];
+              //   selected = option.selected === 'selected' ? ' selected="selected"' : '';
+              //   disabled = option.disabled === 'disabled' ? ' disabled="disabled"' : '';
+              //   html += '<option value="' + option.value + '"' + selected + disabled +'>' + option.text + '</option>';
+              //   option.selected = null;
+              // }
               html += '</select></div>'
               return html;
             }());

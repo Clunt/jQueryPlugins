@@ -20,7 +20,7 @@
         var $target = $(target);
         if (!$target.hasClass('cluntSelect')) {
           $target.addClass('cluntSelect');
-          bind($(prep(target)).appendTo($target.hide().parent()));
+          bind($(prep(target)).insertBefore($target.hide()));
         }
       }
       function bind ($select) {

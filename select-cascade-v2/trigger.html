@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Clunt Select Model</title>
+    <link rel="stylesheet" href="../select/basic-replace/clunt-select.css">
+    <style>
+    body{padding: 100px;}
+    ul{margin: 20px;padding: 20px;background: #eee;list-style: none;}
+    ul li>*{display: block;margin: 10px;}
+    </style>
+  </head>
+  <body>
+    <ul id="conditions">
+    </ul>
+    <script src="../libs/jquery.js"></script>
+    <script src="../select/basic-replace/clunt-select.js"></script>
+    <script src="./cascade.js"></script>
+    <script>
+      var conditions_init = [{
+        "name": "trigger_conditions",
+        "options": [{
+          "text": "选择条件",
+          "value": ""
+        }, {
+          "group": {
+            "title": "------------",
+            "options": [{
+              "text": "主题",
+              "value": "Subject",
+              "selected": "selected"
+            }, {
+              "text": "描述",
+              "value": "Content"
+            }, {
+              "text": "主题或描述",
+              "value": "Subject_or_content"
+            }]
+          }
+        }, {
+          "group": {
+            "title": "------------",
+            "options": [{
+              "text": "select-a",
+              "value": "SelectField_1"
+            }, {
+              "text": "select-b",
+              "value": "SelectField_2"
+            }, {
+              "text": "select-c",
+              "value": "SelectField_3"
+            }]
+          }
+        }],
+        "path": "/triggers/find_trigger_conditions",
+        "cascade": {
+          "Subject": [{
+            "type": "select",
+            "options": [{
+              "value": "is",
+              "text": "是"
+            }, {
+              "value": "is_not",
+              "text": "不是"
+            }, {
+              "value": "contains",
+              "text": "包含"
+            }, {
+              "value": "does_not_contain",
+              "text": "不包含"
+            }, {
+              "value": "starts_with",
+              "text": "以其开始"
+            }, {
+              "value": "ends_with",
+              "text": "以其结束",
+              "selected": "selected"
+            }]
+          }, {
+            "type": "input",
+            "value": "主题默认描述input"
+          }]
+        }
+      }, {
+        "name": "trigger_conditions",
+        "options": [{
+          "text": "选择条件",
+          "value": ""
+        }, {
+          "group": {
+            "title": "------------",
+            "options": [{
+              "text": "主题",
+              "value": "Subject"
+            }, {
+              "text": "描述",
+              "value": "Content"
+            }, {
+              "text": "主题或描述",
+              "value": "Subject_or_content"
+            }]
+          }
+        }, {
+          "group": {
+            "title": "------------",
+            "options": [{
+              "text": "select-a",
+              "value": "SelectField_1",
+              "selected": "selected"
+            }, {
+              "text": "select-b",
+              "value": "SelectField_2"
+            }, {
+              "text": "select-c",
+              "value": "SelectField_3"
+            }]
+          }
+        }],
+        "path": "/triggers/find_trigger_conditions",
+        "cascade": {
+          "SelectField_1": [{
+            "type": "select",
+            "options": [{
+              "text": "是",
+              "value": "is"
+            }, {
+              "text": "不是",
+              "value": "is_not",
+              "selected": "selected"
+            }]
+          }, {
+            "type": "select",
+            "options": [{
+              "text": "select-a-options-1",
+              "value": "0"
+            }, {
+              "text": "select-a-options-2",
+              "value": "1"
+            }, {
+              "text": "select-a-options-3",
+              "value": "2"
+            }, {
+              "text": "select-a-options-4",
+              "value": "3",
+              "selected": "selected"
+            }]
+          }]
+        }
+      }, {
+        "name": "trigger_conditions",
+        "options": [{
+          "text": "选择条件",
+          "value": ""
+        }, {
+          "group": {
+            "title": "------------",
+            "options": [{
+              "text": "主题",
+              "value": "Subject"
+            }, {
+              "text": "描述",
+              "value": "Content"
+            }, {
+              "text": "主题或描述",
+              "value": "Subject_or_content"
+            }]
+          }
+        }, {
+          "group": {
+            "title": "------------",
+            "options": [{
+              "text": "select-a",
+              "value": "SelectField_1"
+            }, {
+              "text": "select-b",
+              "value": "SelectField_2",
+              "selected": "selected"
+            }, {
+              "text": "select-c",
+              "value": "SelectField_3"
+            }]
+          }
+        }],
+        "path": "/triggers/find_trigger_conditions",
+        "cascade": {
+          "SelectField_2": [{
+            "type": "select",
+            "options": [{
+              "text": "是",
+              "value": "is"
+            }, {
+              "text": "不是",
+              "value": "is_not",
+              "selected": "selected"
+            }]
+          }, {
+            "type": "select",
+            "options": [{
+              "text": "select-b-options-1",
+              "value": "0"
+            }, {
+              "text": "select-b-options-2",
+              "value": "1"
+            }, {
+              "text": "select-b-options-3",
+              "value": "2",
+              "selected": "selected"
+            }, {
+              "text": "select-b-options-4",
+              "value": "3"
+            }, {
+              "text": "select-b-options-5",
+              "value": "4"
+            }]
+          }]
+        }
+      }, {
+        "name": "trigger_conditions",
+        "options": [{
+          "text": "选择条件",
+          "value": ""
+        }, {
+          "group": {
+            "title": "------------",
+            "options": [{
+              "text": "主题",
+              "value": "Subject"
+            }, {
+              "text": "描述",
+              "value": "Content"
+            }, {
+              "text": "主题或描述",
+              "value": "Subject_or_content"
+            }]
+          }
+        }, {
+          "group": {
+            "title": "------------",
+            "options": [{
+              "text": "select-a",
+              "value": "SelectField_1",
+              "selected": "selected"
+            }, {
+              "text": "select-b",
+              "value": "SelectField_2"
+            }, {
+              "text": "select-c",
+              "value": "SelectField_3"
+            }]
+          }
+        }],
+        "path": "/triggers/find_trigger_conditions",
+        "cascade": {
+          "SelectField_1": [{
+            "type": "select",
+            "options": [{
+              "text": "是",
+              "value": "is",
+              "selected": "selected"
+            }, {
+              "text": "不是",
+              "value": "is_not"
+            }]
+          }, {
+            "type": "select",
+            "options": [{
+              "text": "select-a-options-1",
+              "value": "0"
+            }, {
+              "text": "select-a-options-2",
+              "value": "1",
+              "selected": "selected"
+            }, {
+              "text": "select-a-options-3",
+              "value": "2"
+            }, {
+              "text": "select-a-options-4",
+              "value": "3"
+            }]
+          }]
+        }
+      }];
+    </script>
+    <script src="./trigger.js"></script>
+  </body>
+</html>
