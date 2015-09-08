@@ -72,7 +72,7 @@
     this.$item = this.$wrap.children();
     this.callback = this.option.callback;
     this.update(-1);
-    this.isSupportTransition = !util.supportCss3('transition');
+    this.isSupportTransition = util.supportCss3('transition');
     if (this.isSupportTransition) {
       util.addAnimation(this.$item, this.speed);
     }
