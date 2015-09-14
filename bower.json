@@ -1,0 +1,17 @@
+{
+  "name": "Clunt jQuery Plugins",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Clunt/jQueryPlugins",
+  "authors": [
+    "Clunt <clunt@foxmail.com>"
+  ],
+  "description": "minify plugins for use.",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
